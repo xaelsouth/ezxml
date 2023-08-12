@@ -1,3 +1,12 @@
+ezXML 0.8.7
+ - static function declarations
+ - new define EZXML_FORMAT_ENC for a bit more pretty printing which is active by default
+ - correct using of EZXML_PARSE_FILE
+ - remove Unix/Linux specific includes
+ - avoid strdup() undefined behaviour on 64 bit systems by declaring prototype
+ - ezxml_parse_xml_str() to accept a const char *xml
+ - few more casts to (char *) in order to avoid compiler warnings
+
 ezXML 0.8.6
 - fixed a bug in ezxml_add_child() that can occur when adding tags out of order
 - for consistency, ezxml_set_attr() now returns the tag given

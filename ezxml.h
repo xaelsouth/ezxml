@@ -1,6 +1,7 @@
 /* ezxml.h
  *
  * Copyright 2004-2006 Aaron Voisine <aaron@voisine.org>
+ * Copyright 2015-2023 Xael South <xael.south@yandex.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,7 +35,6 @@
 extern "C" {
 #endif
 
-#define EZXML_BUFSIZE 1024 // size of internal memory buffers
 #define EZXML_NAMEM   0x80 // name is malloced
 #define EZXML_TXTM    0x40 // txt is malloced
 #define EZXML_DUP     0x20 // attribute name and value are strduped
@@ -57,8 +57,15 @@ struct ezxml {
 // structure. For efficiency, modifies the data by adding null terminators
 // and decoding ampersand sequences. If you don't want this, copy the data and
 // pass in the copy. Returns NULL on failure.
+ezxml_t ezxml_parse_xml_str(const char *s, size_t len);
+
+// Given a string of xml data and its length, parses it and creates an ezxml
+// structure. For efficiency, modifies the data by adding null terminators
+// and decoding ampersand sequences. If you don't want this, copy the data and
+// pass in the copy. Returns NULL on failure.
 ezxml_t ezxml_parse_str(char *s, size_t len);
 
+#ifdef EZXML_PARSE_FILE
 // A wrapper for ezxml_parse_str() that accepts a file descriptor. First
 // attempts to mem map the file. Failing that, reads the file into memory.
 // Returns NULL on failure.
@@ -71,6 +78,7 @@ ezxml_t ezxml_parse_file(const char *file);
 // stream into memory and then parses it. For xml files, use ezxml_parse_file()
 // or ezxml_parse_fd()
 ezxml_t ezxml_parse_fp(FILE *fp);
+#endif
 
 // returns the first child tag (one level deeper) with the given name or NULL
 // if not found
