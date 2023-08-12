@@ -730,16 +730,16 @@ static char *ezxml_toxml_r(ezxml_t xml, char **s, size_t *len, size_t *max,
     // parent character content up to this tag
     *s = ezxml_ampencode(txt + start, xml->off - start, s, len, max, 0);
 
-    #ifndef EZXML_FORMAT_ENC
-    while (*len + strlen(xml->name) + 3 > *max) // reallocate s
-        *s = realloc(*s, *max += EZXML_BUFSIZE);
-    #else
+    #if EZXML_FORMAT_ENC
     while (*len + strlen(xml->name) + 3 + 1 + strlen(spaces)*child_level > *max) // reallocate s
         *s = realloc(*s, *max += EZXML_BUFSIZE);
 
     *len += sprintf(*s + *len, "\n");
     for (i = 0; i < child_level; i++)
         *len += sprintf(*s + *len, "%s", spaces);
+    #else
+    while (*len + strlen(xml->name) + 3 > *max) // reallocate s
+        *s = realloc(*s, *max += EZXML_BUFSIZE);
     #endif
 
     *len += sprintf(*s + *len, "<%s", xml->name); // open tag
@@ -789,7 +789,7 @@ static char *ezxml_toxml_r(ezxml_t xml, char **s, size_t *len, size_t *max,
 
     /* Step up from the last level: close tag. */
 
-    #ifdef EZXML_FORMAT_ENC
+    #if EZXML_FORMAT_ENC
     if (xml->child)
     {
         while (*len + 3 + strlen(spaces)*child_level > *max) // reallocate s
