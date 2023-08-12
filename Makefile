@@ -1,6 +1,7 @@
 # Makefile
 #
 # Copyright 2004, 2005 Aaron Voisine <aaron@voisine.org>
+# Copyright 2015-2023 Xael South <xael.south@yandex.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -36,7 +37,7 @@ CFLAGS += -D EZXML_NOMMAP
 CFLAGS += -O0 -g
 .endif
 .if make($(TEST)) || make(test)
-CFLAGS += -D EZXML_TEST
+CFLAGS += -D EZXML_TEST -D EZXML_PARSE_FILE
 .endif
 
 all: $(LIB)
@@ -60,3 +61,4 @@ ezxml.o: ezxml.h ezxml.c
 
 clean:
 	$(RM) $(OBJS) $(LIB) $(TEST) *~
+

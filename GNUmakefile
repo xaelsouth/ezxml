@@ -1,6 +1,7 @@
 # Makefile
 #
 # Copyright 2005 Aaron Voisine <aaron@voisine.org>
+# Copyright 2015-2023 Xael South <xael.south@yandex.com>
 #
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -50,7 +51,7 @@ debug: all
 test: CFLAGS += $(DEBUG_CFLAGS)
 test: $(TEST)
 
-$(TEST): CFLAGS += -D EZXML_TEST
+$(TEST): CFLAGS += -D EZXML_TEST -D EZXML_PARSE_FILE
 $(TEST): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $(OBJS)
 
@@ -61,3 +62,4 @@ ezxml.o: ezxml.h ezxml.c
 
 clean:
 	$(RM) $(OBJS) $(LIB) $(TEST) *~
+

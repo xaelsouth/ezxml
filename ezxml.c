@@ -35,7 +35,6 @@
 #ifdef EZXML_TEST
 #include <unistd.h>
 #include <sys/types.h>
-#define EZXML_PARSE_FILE
 #endif // EZXML_TEST
 #ifndef EZXML_NOMMAP
 #include <sys/mman.h>
