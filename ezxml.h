@@ -35,7 +35,7 @@
 extern "C" {
 #endif
 
-#define EZXML_NAMEM   0x80 // name is malloced
+#define EZXML_NAMEM   (char)0x80 // name is malloced
 #define EZXML_TXTM    0x40 // txt is malloced
 #define EZXML_DUP     0x20 // attribute name and value are strduped
 
